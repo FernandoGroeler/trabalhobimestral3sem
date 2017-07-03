@@ -223,25 +223,29 @@ public class FramePlanoContas extends JFrame {
 		List<PlanoContas> lista = new ArrayList<>();
 		lista = dao.getTodos();
 		
-		for (PlanoContas pc : lista) {
-			PlanoContas pc1 = new PlanoContas();
-			pc1.setIdPlanoContas(pc.getIdPlanoContas());
-			pc1.setConta(pc.getConta());
-			pc1.setDescricao(pc.getDescricao());
-			pc1.setValor(pc.getValor());
+		if (lista != null) {
+			for (PlanoContas pc : lista) {
+				PlanoContas pc1 = new PlanoContas();
+				pc1.setIdPlanoContas(pc.getIdPlanoContas());
+				pc1.setConta(pc.getConta());
+				pc1.setDescricao(pc.getDescricao());
+				pc1.setValor(pc.getValor());
 			
-			pcRoot.add(pc1);
-		}
+				pcRoot.add(pc1);
+			}
 		
-       for (PlanoContas pc : lista) {
-    	   pcRoot.setValor(pc.getConta(), pc.getValor());
-    	   pcRoot.setDescricao(pc.getDescricao());
-       }
+			for (PlanoContas pc : lista) {
+				pcRoot.setValor(pc.getConta(), pc.getValor());
+				pcRoot.setDescricao(pc.getDescricao());
+			}
 
-       pcRoot.zeraNulos();
-       pcRoot.updateTotalizadores();
+			pcRoot.zeraNulos();
+			pcRoot.updateTotalizadores();
 
-       txtrPlanocontas.setText(pcRoot.toString());
+			txtrPlanocontas.setText(pcRoot.toString());
+		} else {
+			limparCampos();
+		}
 	}
 	
 	protected void excluir() {
