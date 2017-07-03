@@ -187,7 +187,6 @@ public class FramePlanoContas extends JFrame {
 		*/
 		
 		atualizarArvore();
-		
 	}
 	
 	protected void abreBusca() {
@@ -224,8 +223,7 @@ public class FramePlanoContas extends JFrame {
 	protected void preencher(PlanoContas t) {
 		frmtdtxtfldConta.setText(t.getConta());
 		txtDescricao.setText(t.getDescricao());
-		System.out.println(t.getValor());
-		txtValor.setText("0");
+		txtValor.setText(t.getValor().toString());
 		pcSelecionado = t;
 		idSelecionado = t.getIdPlanoContas();
 	}

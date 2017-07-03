@@ -138,6 +138,7 @@ public class PanelPesquisarPlanoContas extends JPanel {
 				pc1.setIdPlanoContas(pc.getIdPlanoContas());
 				pc1.setConta(pc.getConta());
 				pc1.setDescricao(pc.getDescricao());
+				pc1.setValor(pc.getValor());
 				
 				lista.add(pc1);
 			}
