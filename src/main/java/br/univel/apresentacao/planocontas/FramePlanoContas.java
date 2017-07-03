@@ -187,6 +187,7 @@ public class FramePlanoContas extends JFrame {
 		*/
 		
 		atualizarArvore();
+		
 	}
 	
 	protected void abreBusca() {
