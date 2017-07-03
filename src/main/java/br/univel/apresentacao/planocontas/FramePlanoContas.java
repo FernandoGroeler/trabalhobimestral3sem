@@ -6,7 +6,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import br.univel.dao.PlanoContasDao;
 import br.univel.entidade.PlanoContas;
@@ -20,7 +19,6 @@ import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -175,17 +173,7 @@ public class FramePlanoContas extends JFrame {
 		txtrPlanocontas.setEditable(false);
 		txtrPlanocontas.setText("PlanoContas");
 		scrollPane.setViewportView(txtrPlanocontas);
-		
-		/*
-		MaskFormatter mask;
-		try {
-			mask = new MaskFormatter("#.#.#.###");
-			mask.install(frmtdtxtfldConta);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		*/
-		
+				
 		atualizarArvore();
 	}
 	
@@ -245,7 +233,15 @@ public class FramePlanoContas extends JFrame {
 			pcRoot.add(pc1);
 		}
 		
-		txtrPlanocontas.setText(pcRoot.toString());
+       for (PlanoContas pc : lista) {
+    	   pcRoot.setValor(pc.getConta(), pc.getValor());
+    	   pcRoot.setDescricao(pc.getDescricao());
+       }
+
+       pcRoot.zeraNulos();
+       pcRoot.updateTotalizadores();
+
+       txtrPlanocontas.setText(pcRoot.toString());
 	}
 	
 	protected void excluir() {

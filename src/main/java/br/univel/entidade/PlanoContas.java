@@ -87,6 +87,7 @@ public class PlanoContas {
 		
 		step.setIdPlanoContas(pc.getIdPlanoContas());
 		step.setConta(pc.getConta());
+		step.setDescricao(pc.getDescricao());
 	}
 
 	public void setValor(String codigo, BigDecimal valor) {
