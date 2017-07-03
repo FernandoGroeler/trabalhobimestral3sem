@@ -40,6 +40,7 @@ public class FramePlanoContas extends JFrame {
 	private JFormattedTextField frmtdtxtfldConta;
 	private PlanoContas pcSelecionado;
 	private JTextArea txtrPlanocontas;
+	private int idSelecionado;
 
 	/**
 	 * Launch the application.
@@ -61,6 +62,7 @@ public class FramePlanoContas extends JFrame {
 	 * Create the frame.
 	 */
 	public FramePlanoContas() {
+		setMinimumSize(new Dimension(800, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -142,7 +144,7 @@ public class FramePlanoContas extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				confirmar();
 				limparCampos();
-				atualizar();
+				atualizarArvore();
 			}
 		});
 		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
@@ -157,7 +159,7 @@ public class FramePlanoContas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				excluir();
 				limparCampos();
-				atualizar();
+				atualizarArvore();
 			}
 		});
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
@@ -170,10 +172,11 @@ public class FramePlanoContas extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		txtrPlanocontas = new JTextArea();
+		txtrPlanocontas.setEditable(false);
 		txtrPlanocontas.setText("PlanoContas");
 		scrollPane.setViewportView(txtrPlanocontas);
 		
-		
+		/*
 		MaskFormatter mask;
 		try {
 			mask = new MaskFormatter("#.#.#.###");
@@ -181,8 +184,9 @@ public class FramePlanoContas extends JFrame {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		*/
 		
-		atualizar();
+		atualizarArvore();
 	}
 	
 	protected void abreBusca() {
@@ -213,6 +217,7 @@ public class FramePlanoContas extends JFrame {
 		txtDescricao.setText("");
 		txtValor.setText("");
 		pcSelecionado = null;
+		idSelecionado = 0;
 	}
 
 	protected void preencher(PlanoContas t) {
@@ -221,9 +226,10 @@ public class FramePlanoContas extends JFrame {
 		System.out.println(t.getValor());
 		txtValor.setText("0");
 		pcSelecionado = t;
+		idSelecionado = t.getIdPlanoContas();
 	}
 	
-	protected void atualizar() {
+	protected void atualizarArvore() {
 		PlanoContas pcRoot = new PlanoContas();
  		PlanoContasDao dao = new PlanoContasDao();
  		
@@ -268,6 +274,10 @@ public class FramePlanoContas extends JFrame {
 			pc.setValor(new BigDecimal(txtValor.getText()));
 			inserir(pc);
 		} else {
+			pcSelecionado.setIdPlanoContas(this.idSelecionado);
+			pcSelecionado.setConta(frmtdtxtfldConta.getText());
+			pcSelecionado.setDescricao(txtDescricao.getText());
+			pcSelecionado.setValor(new BigDecimal(txtValor.getText()));
 			atualizar(pcSelecionado);
 		}
 	}
